@@ -16,8 +16,6 @@ defmodule Ptah.Application do
     children = [
       # Start the Telemetry supervisor
       PtahWeb.Telemetry,
-      # Start the Ecto repository
-      Ptah.Repo,
       # Start the PubSub system
       {Phoenix.PubSub, name: Ptah.PubSub},
       # Start the Endpoint (http/https)

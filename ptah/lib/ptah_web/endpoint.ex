@@ -27,7 +27,6 @@ defmodule PtahWeb.Endpoint do
   # :code_reloader configuration of your endpoint.
   if code_reloading? do
     plug Phoenix.CodeReloader
-    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :ptah
   end
 
   plug Plug.RequestId
