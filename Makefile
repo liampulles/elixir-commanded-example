@@ -7,4 +7,4 @@ init:
 
 run:
 	docker compose up -d
-	$(MAKE) -C fogsvc run
+	$(MAKE) -C todos run
