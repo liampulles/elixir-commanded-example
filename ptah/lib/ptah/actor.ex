@@ -5,11 +5,20 @@ defmodule Ptah.CreateActor do
   defstruct [:id, :name, :date_of_birth]
 end
 
+defmodule Ptah.DeleteActor do
+  defstruct [:id]
+end
+
 # --- Events ---
 
 defmodule Ptah.ActorCreated do
   @derive Jason.Encoder
   defstruct [:id, :name, :date_of_birth]
+end
+
+defmodule Ptah.ActorDeleted do
+  @derive Jason.Encoder
+  defstruct [:id]
 end
 
 # Aggregate
@@ -45,6 +54,16 @@ defmodule Ptah.Actor do
     {:error, :actor_already_exists}
   end
 
+  # Delete actor
+  # -> ID is required
+  def execute(%Ptah.Actor{}, %Ptah.DeleteActor{id: nil}) do
+    {:error, :id_is_required}
+  end
+  # TODO: Don't send event if already deleted or not existing, but also don't fail?
+  def execute(%Ptah.Actor{}, %Ptah.DeleteActor{id: id}) do
+    %Ptah.ActorDeleted{id: id}
+  end
+
   # --- State mutators ---
 
   # Create actor
@@ -54,5 +73,10 @@ defmodule Ptah.Actor do
       name: name,
       date_of_birth: date_of_birth
     }
+  end
+
+  # Delete actor
+  def apply(%Ptah.Actor{}, %Ptah.ActorDeleted{}) do
+    nil
   end
 end
