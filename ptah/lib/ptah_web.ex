@@ -1,12 +1,12 @@
-defmodule TodoServiceWeb do
+defmodule PtahWeb do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, components, channels, and so on.
 
   This can be used in your application as:
 
-      use TodoServiceWeb, :controller
-      use TodoServiceWeb, :html
+      use PtahWeb, :controller
+      use PtahWeb, :html
 
   The definitions below will be executed for every controller,
   component, etc, so keep them short and clean, focused
@@ -39,7 +39,7 @@ defmodule TodoServiceWeb do
     quote do
       use Phoenix.Controller,
         formats: [:html, :json],
-        layouts: [html: TodoServiceWeb.Layouts]
+        layouts: [html: PtahWeb.Layouts]
 
       import Plug.Conn
 
@@ -50,9 +50,9 @@ defmodule TodoServiceWeb do
   def verified_routes do
     quote do
       use Phoenix.VerifiedRoutes,
-        endpoint: TodoServiceWeb.Endpoint,
-        router: TodoServiceWeb.Router,
-        statics: TodoServiceWeb.static_paths()
+        endpoint: PtahWeb.Endpoint,
+        router: PtahWeb.Router,
+        statics: PtahWeb.static_paths()
     end
   end
 

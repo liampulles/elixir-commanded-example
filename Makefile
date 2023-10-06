@@ -7,4 +7,4 @@ init:
 
 run:
 	docker compose up -d
-	$(MAKE) -C todos run
+	$(MAKE) -C ptah run

@@ -1,4 +1,4 @@
-defmodule TodoServiceWeb.Telemetry do
+defmodule PtahWeb.Telemetry do
   use Supervisor
   import Telemetry.Metrics
 
@@ -52,23 +52,23 @@ defmodule TodoServiceWeb.Telemetry do
       ),
 
       # Database Metrics
-      summary("todo_service.repo.query.total_time",
+      summary("ptah.repo.query.total_time",
         unit: {:native, :millisecond},
         description: "The sum of the other measurements"
       ),
-      summary("todo_service.repo.query.decode_time",
+      summary("ptah.repo.query.decode_time",
         unit: {:native, :millisecond},
         description: "The time spent decoding the data received from the database"
       ),
-      summary("todo_service.repo.query.query_time",
+      summary("ptah.repo.query.query_time",
         unit: {:native, :millisecond},
         description: "The time spent executing the query"
       ),
-      summary("todo_service.repo.query.queue_time",
+      summary("ptah.repo.query.queue_time",
         unit: {:native, :millisecond},
         description: "The time spent waiting for a database connection"
       ),
-      summary("todo_service.repo.query.idle_time",
+      summary("ptah.repo.query.idle_time",
         unit: {:native, :millisecond},
         description:
           "The time the connection spent waiting before being checked out for the query"
@@ -86,7 +86,7 @@ defmodule TodoServiceWeb.Telemetry do
     [
       # A module, function and arguments to be invoked periodically.
       # This function must call :telemetry.execute/3 and a metric must be added above.
-      # {TodoServiceWeb, :count_users, []}
+      # {PtahWeb, :count_users, []}
     ]
   end
 end

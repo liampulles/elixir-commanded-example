@@ -1,13 +1,13 @@
-defmodule TodoServiceWeb.Endpoint do
-  use Phoenix.Endpoint, otp_app: :todo_service
+defmodule PtahWeb.Endpoint do
+  use Phoenix.Endpoint, otp_app: :ptah
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.
   @session_options [
     store: :cookie,
-    key: "_todo_service_key",
-    signing_salt: "elFOyBqN",
+    key: "_ptah_key",
+    signing_salt: "5JUvh0uB",
     same_site: "Lax"
   ]
 
@@ -19,15 +19,15 @@ defmodule TodoServiceWeb.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/",
-    from: :todo_service,
+    from: :ptah,
     gzip: false,
-    only: TodoServiceWeb.static_paths()
+    only: PtahWeb.static_paths()
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
   if code_reloading? do
     plug Phoenix.CodeReloader
-    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :todo_service
+    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :ptah
   end
 
   plug Plug.RequestId
@@ -41,5 +41,5 @@ defmodule TodoServiceWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
-  plug TodoServiceWeb.Router
+  plug PtahWeb.Router
 end

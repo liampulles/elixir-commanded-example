@@ -7,18 +7,18 @@
 # General application configuration
 import Config
 
-config :todo_service,
-  ecto_repos: [TodoService.Repo]
+config :ptah,
+  ecto_repos: [Ptah.Repo]
 
 # Configures the endpoint
-config :todo_service, TodoServiceWeb.Endpoint,
+config :ptah, PtahWeb.Endpoint,
   url: [host: "localhost"],
   render_errors: [
-    formats: [json: TodoServiceWeb.ErrorJSON],
+    formats: [json: PtahWeb.ErrorJSON],
     layout: false
   ],
-  pubsub_server: TodoService.PubSub,
-  live_view: [signing_salt: "slocpAis"]
+  pubsub_server: Ptah.PubSub,
+  live_view: [signing_salt: "2D2s0Hah"]
 
 # Configures Elixir's Logger
 config :logger, :console,
