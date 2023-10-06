@@ -10,7 +10,7 @@ defmodule Ptah.Commanded do
     event_store: Ptah.EventStore
   ]
 
-  router Ptah.Router
+  router Ptah.CommandModel.ActorRouter
 end
 
 defmodule Ptah.Application do
