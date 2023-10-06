@@ -38,7 +38,8 @@ defmodule Ptah.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:commanded, "~> 1.4"},
-      {:commanded_eventstore_adapter, "~> 1.4"}
+      {:commanded_eventstore_adapter, "~> 1.4"},
+      {:ecto_sql, "~> 3.10"},
     ]
   end
 

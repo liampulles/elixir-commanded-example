@@ -1,19 +1,26 @@
+defmodule Ptah.EventStore do
+  use EventStore, otp_app: :ptah
+end
+
+defmodule Ptah.Commanded do
+  use Commanded.Application,
+  otp_app: :ptah,
+  event_store: [
+    adapter: Commanded.EventStore.Adapters.EventStore,
+    event_store: Ptah.EventStore
+  ]
+
+  router Ptah.Router
+end
+
 defmodule Ptah.Application do
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   @moduledoc false
-
-  use Application
-  use Commanded.Application,
-    otp_app: :ptah,
-    event_store: [
-      adapter: Commanded.EventStore.Adapters.EventStore,
-      event_store: Ptah.EventStore
-    ]
-
   @impl true
   def start(_type, _args) do
     children = [
+      Ptah.Commanded,
       # Start the Telemetry supervisor
       PtahWeb.Telemetry,
       # Start the PubSub system
