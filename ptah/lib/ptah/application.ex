@@ -1,7 +1,9 @@
+# Define the commanded event store
 defmodule Ptah.EventStore do
   use EventStore, otp_app: :ptah
 end
 
+# Define the commanded supervisor
 defmodule Ptah.Commanded do
   use Commanded.Application,
   otp_app: :ptah,
@@ -10,26 +12,22 @@ defmodule Ptah.Commanded do
     event_store: Ptah.EventStore
   ]
 
+  # Routers, i.e. where to direct commands
   router Ptah.CommandModel.ActorRouter
   router Ptah.CommandModel.MediaRouter
 end
 
 defmodule Ptah.Application do
-  # See https://hexdocs.pm/elixir/Application.html
-  # for more information on OTP Applications
-  @moduledoc false
   @impl true
   def start(_type, _args) do
     children = [
+      # Commanded
       Ptah.Commanded,
-      # Start the Telemetry supervisor
+
+      # Phoenix
       PtahWeb.Telemetry,
-      # Start the PubSub system
       {Phoenix.PubSub, name: Ptah.PubSub},
-      # Start the Endpoint (http/https)
       PtahWeb.Endpoint
-      # Start a worker by calling: Ptah.Worker.start_link(arg)
-      # {Ptah.Worker, arg}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

@@ -27,12 +27,12 @@ alias Ptah.CommandModel.MediaDeleted
 
 # Aggregate
 defmodule Ptah.CommandModel.Media do
-  alias Ptah.CommandModel.Media
   defstruct [
     :id,
     :name,
     :release_date
   ]
+  alias __MODULE__
 
   # --- Command handlers ---
 
@@ -85,12 +85,13 @@ defmodule Ptah.CommandModel.Media do
     nil
   end
 end
+alias Ptah.CommandModel.Media
 
 # Router
 defmodule Ptah.CommandModel.MediaRouter do
   use Commanded.Commands.Router
 
   # Media
-  dispatch CreateMedia, to: Ptah.CommandModel.Media, identity: :id
-  dispatch DeleteMedia, to: Ptah.CommandModel.Media, identity: :id
+  dispatch CreateMedia, to: Media, identity: :id
+  dispatch DeleteMedia, to: Media, identity: :id
 end

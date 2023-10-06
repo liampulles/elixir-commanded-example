@@ -27,12 +27,12 @@ alias Ptah.CommandModel.ActorDeleted
 
 # Aggregate
 defmodule Ptah.CommandModel.Actor do
-  alias Ptah.CommandModel.Actor
   defstruct [
     :id,
     :name,
     :date_of_birth
   ]
+  alias __MODULE__
 
   # --- Command handlers ---
 
@@ -85,12 +85,13 @@ defmodule Ptah.CommandModel.Actor do
     nil
   end
 end
+alias Ptah.CommandModel.Actor
 
 # Router
 defmodule Ptah.CommandModel.ActorRouter do
   use Commanded.Commands.Router
 
   # Actor
-  dispatch CreateActor, to: Ptah.CommandModel.Actor, identity: :id
-  dispatch DeleteActor, to: Ptah.CommandModel.Actor, identity: :id
+  dispatch CreateActor, to: Actor, identity: :id
+  dispatch DeleteActor, to: Actor, identity: :id
 end
