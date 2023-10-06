@@ -11,6 +11,7 @@ defmodule Ptah.Commanded do
   ]
 
   router Ptah.CommandModel.ActorRouter
+  router Ptah.CommandModel.MediaRouter
 end
 
 defmodule Ptah.Application do
