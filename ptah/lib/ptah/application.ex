@@ -4,6 +4,12 @@ defmodule Ptah.Application do
   @moduledoc false
 
   use Application
+  use Commanded.Application,
+    otp_app: :ptah,
+    event_store: [
+      adapter: Commanded.EventStore.Adapters.EventStore,
+      event_store: Ptah.EventStore
+    ]
 
   @impl true
   def start(_type, _args) do
