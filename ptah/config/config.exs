@@ -8,6 +8,9 @@
 import Config
 
 config :ptah,
+  ecto_repos: [Ptah.Repo]
+
+config :ptah,
   event_stores: [Ptah.EventStore]
 
 # Configures the endpoint

@@ -26,6 +26,11 @@ defmodule Ptah.Application do
 
       # Phoenix
       PtahWeb.Telemetry,
+
+      # Start the Ecto repository
+      Ptah.Repo,
+
+      # Start the PubSub system
       {Phoenix.PubSub, name: Ptah.PubSub},
       PtahWeb.Endpoint
     ]

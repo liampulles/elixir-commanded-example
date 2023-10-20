@@ -1,6 +1,15 @@
 import Config
 
 # Configure your database
+config :ptah, Ptah.Repo,
+  username: "postgres",
+  password: "postgres",
+  hostname: "localhost",
+  database: "ptah_dev",
+  stacktrace: true,
+  show_sensitive_data_on_connection_error: true,
+  pool_size: 10
+
 config :ptah, Ptah.EventStore,
   serializer: Commanded.Serialization.JsonSerializer,
   username: "postgres",
