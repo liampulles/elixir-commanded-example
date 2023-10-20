@@ -13,6 +13,10 @@ config :ptah,
 config :ptah,
   event_stores: [Ptah.EventStore]
 
+# Commanded projections
+config :commanded_ecto_projections,
+  repo: Ptah.Repo
+
 # Configures the endpoint
 config :ptah, PtahWeb.Endpoint,
   url: [host: "localhost"],
