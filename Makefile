@@ -8,3 +8,6 @@ init:
 run:
 	docker compose up -d
 	$(MAKE) -C ptah run
+
+clean:
+	docker compose down -v

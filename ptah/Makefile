@@ -1,5 +1,6 @@
 run:
 	mix deps.get
 	mix ecto.create
-	mix do event_store.create, event_store.init
+	mix ecto.migrate
+	-mix do event_store.create, event_store.init
 	mix phx.server
