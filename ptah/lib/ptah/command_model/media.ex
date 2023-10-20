@@ -11,6 +11,11 @@ defmodule Ptah.CommandModel.DeleteMedia do
 end
 alias Ptah.CommandModel.DeleteMedia
 
+defmodule Ptah.CommandModel.AddCast do
+  defstruct [:id, :actor_id]
+end
+alias Ptah.CommandModel.AddCast
+
 # --- Events ---
 
 defmodule Ptah.CommandModel.MediaCreated do
@@ -25,12 +30,19 @@ defmodule Ptah.CommandModel.MediaDeleted do
 end
 alias Ptah.CommandModel.MediaDeleted
 
+defmodule Ptah.CommandModel.CastAdded do
+  @derive Jason.Encoder
+  defstruct [:id, :actor_id]
+end
+alias Ptah.CommandModel.CastAdded
+
 # Aggregate
 defmodule Ptah.CommandModel.Media do
   defstruct [
     :id,
     :name,
-    :release_date
+    :release_date,
+    :cast_actor_ids
   ]
   alias __MODULE__
 
@@ -69,6 +81,23 @@ defmodule Ptah.CommandModel.Media do
     %MediaDeleted{id: id}
   end
 
+  # Add cast
+  # -> ID and Actor ID required
+  def execute(%Media{}, %AddCast{id: nil}) do
+    {:error, :id_is_required}
+  end
+  def execute(%Media{}, %AddCast{actor_id: nil}) do
+    {:error, :actor_id_is_required}
+  end
+  # -> When media does not exist yet, fail
+  def execute(%Media{id: nil}, %AddCast{}) do
+    {:error, :actor_does_not_exist}
+  end
+  # -> Else, when media already exists, send event
+  def execute(%Media{}, %AddCast{id: id, actor_id: actor_id}) do
+    %CastAdded{id: id, actor_id: actor_id}
+  end
+
   # --- State mutators ---
 
   # Create media
@@ -84,6 +113,13 @@ defmodule Ptah.CommandModel.Media do
   def apply(%Media{}, %MediaDeleted{}) do
     nil
   end
+
+  # Add cast
+  def apply(%Media{} = media, %CastAdded{id: id, actor_id: actor_id}) do
+    %Media{media |
+      cast_actor_ids: [actor_id | List.wrap(media.cast_actor_ids)]
+    }
+  end
 end
 alias Ptah.CommandModel.Media
 
@@ -94,4 +130,5 @@ defmodule Ptah.CommandModel.MediaRouter do
   # Media
   dispatch CreateMedia, to: Media, identity: :id
   dispatch DeleteMedia, to: Media, identity: :id
+  dispatch AddCast, to: Media, identity: :id
 end
